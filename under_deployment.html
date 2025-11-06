@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JOBYN.ai | ATS</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Space Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: #000000;
+            color: #ffffff;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        .neural-network {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            opacity: 0.15;
+        }
+
+        canvas {
+            display: block;
+        }
+
+        .scan-line {
+            position: fixed;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, #00d4ff, transparent);
+            box-shadow: 0 0 30px #00d4ff, 0 0 60px #00d4ff;
+            animation: scan 4s ease-in-out infinite;
+            z-index: 2;
+            opacity: 0.7;
+        }
+
+        @keyframes scan {
+            0% {
+                top: 0;
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.7;
+            }
+            90% {
+                opacity: 0.7;
+            }
+            100% {
+                top: 100%;
+                opacity: 0;
+            }
+        }
+
+        .content-wrapper {
+            position: relative;
+            z-index: 1;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .hero {
+            text-align: center;
+            padding: 10vh 20px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .brand {
+            font-size: 3rem;
+            font-weight: 700;
+            color: #00d4ff;
+            margin-bottom: 60px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .deployment-status {
+            font-size: 6rem;
+            font-weight: 900;
+            line-height: 1.1;
+            margin-bottom: 30px;
+            letter-spacing: -2px;
+            background: linear-gradient(135deg, #ffffff, #00d4ff, #0080ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: shimmer 3s ease-in-out infinite;
+            background-size: 200% 200%;
+        }
+
+        @keyframes shimmer {
+            0%, 100% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+        }
+
+        .tagline {
+            font-size: 1.4rem;
+            color: #888888;
+            margin-bottom: 80px;
+            font-weight: 300;
+        }
+
+        .info-blocks {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 40px;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 20px 100px;
+        }
+
+        .info-block {
+            background: linear-gradient(135deg, rgba(0, 212, 255, 0.05), rgba(0, 128, 255, 0.05));
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            border-radius: 12px;
+            padding: 40px 30px;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .info-block::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 212, 255, 0.1), transparent);
+            transition: left 0.8s ease;
+        }
+
+        .info-block:hover::after {
+            left: 100%;
+        }
+
+        .info-block:hover {
+            border-color: rgba(0, 212, 255, 0.6);
+            transform: translateY(-8px);
+            box-shadow: 0 20px 60px rgba(0, 212, 255, 0.2);
+        }
+
+        .block-header {
+            font-size: 0.85rem;
+            color: #00d4ff;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+
+        .block-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: #ffffff;
+        }
+
+        .block-text {
+            font-size: 1.05rem;
+            color: #aaaaaa;
+            line-height: 1.7;
+        }
+
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            color: #555555;
+            font-size: 0.9rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        @media (max-width: 768px) {
+            .brand {
+                font-size: 2.2rem;
+            }
+
+            .deployment-status {
+                font-size: 3.5rem;
+            }
+
+            .tagline {
+                font-size: 1.2rem;
+                margin-bottom: 60px;
+            }
+
+            .info-blocks {
+                gap: 30px;
+                padding: 0 20px 80px;
+            }
+
+            .block-title {
+                font-size: 1.5rem;
+            }
+
+            .hero {
+                padding: 8vh 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .brand {
+                font-size: 1.8rem;
+            }
+
+            .deployment-status {
+                font-size: 2.8rem;
+            }
+
+            .tagline {
+                font-size: 1.05rem;
+            }
+
+            .info-block {
+                padding: 30px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="neural-network">
+        <canvas id="networkCanvas"></canvas>
+    </div>
+
+    <div class="scan-line"></div>
+
+    <div class="content-wrapper">
+        <section class="hero">
+            <div class="brand">JOBYN.ai</div>
+            <h1 class="deployment-status">UNDER<br>DEPLOYMENT</h1>
+            <p class="tagline">AI-Powered Applicant Tracking System</p>
+        </section>
+
+        <div class="info-blocks">
+            <div class="info-block">
+                <div class="block-header">For Candidates</div>
+                <h2 class="block-title">Upskill Now</h2>
+                <p class="block-text">
+                    Access free courses to enhance your profile and stay competitive in the AI-driven job market.
+                </p>
+            </div>
+
+            <div class="info-block">
+                <div class="block-header">For HR Teams</div>
+                <h2 class="block-title">Smarter Insights</h2>
+                <p class="block-text">
+                    Get AI-powered candidate analysis with semantic search, vector embeddings, and intelligent recommendations.
+                </p>
+            </div>
+        </div>
+
+        <footer>
+            © 2025 JOBYN.ai | Designed and developed by Pranav
+        </footer>
+    </div>
+
+    <script>
+        // Neural network animation
+        const canvas = document.getElementById('networkCanvas');
+        const ctx = canvas.getContext('2d');
+
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        const nodes = [];
+        const nodeCount = 80;
+        const maxDistance = 150;
+
+        class Node {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.vx = (Math.random() - 0.5) * 0.5;
+                this.vy = (Math.random() - 0.5) * 0.5;
+                this.radius = 2;
+            }
+
+            update() {
+                this.x += this.vx;
+                this.y += this.vy;
+
+                if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
+                if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
+            }
+
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                ctx.fillStyle = 'rgba(0, 212, 255, 0.6)';
+                ctx.fill();
+            }
+        }
+
+        for (let i = 0; i < nodeCount; i++) {
+            nodes.push(new Node());
+        }
+
+        function drawConnections() {
+            for (let i = 0; i < nodes.length; i++) {
+                for (let j = i + 1; j < nodes.length; j++) {
+                    const dx = nodes[i].x - nodes[j].x;
+                    const dy = nodes[i].y - nodes[j].y;
+                    const distance = Math.sqrt(dx * dx + dy * dy);
+
+                    if (distance < maxDistance) {
+                        const opacity = (1 - distance / maxDistance) * 0.3;
+                        ctx.beginPath();
+                        ctx.moveTo(nodes[i].x, nodes[i].y);
+                        ctx.lineTo(nodes[j].x, nodes[j].y);
+                        ctx.strokeStyle = `rgba(0, 212, 255, ${opacity})`;
+                        ctx.lineWidth = 1;
+                        ctx.stroke();
+                    }
+                }
+            }
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            nodes.forEach(node => {
+                node.update();
+                node.draw();
+            });
+
+            drawConnections();
+            requestAnimationFrame(animate);
+        }
+
+        animate();
+
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+    </script>
+</body>
+</html>
