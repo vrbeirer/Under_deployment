@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
     <title>JOBYN.ai | ATS</title>
     <style>
         * {
@@ -118,7 +118,7 @@
 
         .hero {
             text-align: center;
-            padding: 10vh 20px;
+            padding: clamp(5vh, 10vh, 15vh) clamp(1rem, 5vw, 2rem);
             flex: 1;
             display: flex;
             flex-direction: column;
@@ -126,19 +126,19 @@
         }
 
         .brand {
-            font-size: 3rem;
+            font-size: clamp(1.5rem, 5vw, 3rem);
             font-weight: 700;
             color: #8b9199;
-            margin-bottom: 60px;
+            margin-bottom: clamp(2rem, 8vw, 3.75rem);
             letter-spacing: 2px;
             text-transform: uppercase;
         }
 
         .deployment-status {
-            font-size: 6rem;
+            font-size: clamp(2.5rem, 10vw, 6rem);
             font-weight: 900;
             line-height: 1.1;
-            margin-bottom: 30px;
+            margin-bottom: clamp(1.5rem, 4vw, 1.875rem);
             letter-spacing: -2px;
             background: linear-gradient(135deg, #ffffff, #8b9199, #0080ff);
             -webkit-background-clip: text;
@@ -146,6 +146,7 @@
             background-clip: text;
             animation: shimmer 3s ease-in-out infinite;
             background-size: 200% 200%;
+            word-wrap: break-word;
         }
 
         @keyframes shimmer {
@@ -158,26 +159,27 @@
         }
 
         .tagline {
-            font-size: 1.4rem;
+            font-size: clamp(1rem, 3vw, 1.4rem);
             color: #888888;
-            margin-bottom: 80px;
+            margin-bottom: clamp(3rem, 10vw, 5rem);
             font-weight: 300;
         }
 
         .info-blocks {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 40px;
+            grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
+            gap: clamp(1.5rem, 4vw, 2.5rem);
             max-width: 1000px;
             margin: 0 auto;
-            padding: 0 20px 100px;
+            padding: 0 clamp(1rem, 5vw, 1.25rem) clamp(3rem, 10vw, 6.25rem);
+            width: 100%;
         }
 
         .info-block {
             background: linear-gradient(135deg, rgba(0, 212, 255, 0.05), rgba(0, 128, 255, 0.05));
             border: 1px solid rgba(0, 212, 255, 0.3);
             border-radius: 12px;
-            padding: 40px 30px;
+            padding: clamp(1.5rem, 5vw, 2.5rem) clamp(1.25rem, 4vw, 1.875rem);
             transition: all 0.4s ease;
             position: relative;
             overflow: hidden;
@@ -205,78 +207,144 @@
         }
 
         .block-header {
-            font-size: 0.85rem;
+            font-size: clamp(0.75rem, 2vw, 0.85rem);
             color: #8b9199;
             text-transform: uppercase;
             letter-spacing: 2px;
             font-weight: 600;
-            margin-bottom: 20px;
+            margin-bottom: clamp(1rem, 3vw, 1.25rem);
         }
 
         .block-title {
-            font-size: 1.8rem;
+            font-size: clamp(1.4rem, 4vw, 1.8rem);
             font-weight: 700;
-            margin-bottom: 15px;
+            margin-bottom: clamp(0.75rem, 2vw, 0.9375rem);
             color: #ffffff;
         }
 
         .block-text {
-            font-size: 1.05rem;
+            font-size: clamp(0.95rem, 2.5vw, 1.05rem);
             color: #aaaaaa;
             line-height: 1.7;
         }
 
         footer {
             text-align: center;
-            padding: 40px 20px;
+            padding: clamp(1.5rem, 5vw, 2.5rem) clamp(1rem, 5vw, 1.25rem);
             color: #555555;
-            font-size: 0.9rem;
+            font-size: clamp(0.8rem, 2vw, 0.9rem);
             border-top: 1px solid rgba(255, 255, 255, 0.1);
         }
 
-        @media (max-width: 768px) {
+        /* Mobile First - Extra Small Devices */
+        @media (max-width: 375px) {
+            .hero {
+                padding: 5vh 1rem;
+            }
+
             .brand {
-                font-size: 2.2rem;
+                margin-bottom: 2rem;
             }
 
             .deployment-status {
-                font-size: 3.5rem;
-            }
-
-            .tagline {
-                font-size: 1.2rem;
-                margin-bottom: 60px;
+                letter-spacing: -1px;
             }
 
             .info-blocks {
-                gap: 30px;
-                padding: 0 20px 80px;
-            }
-
-            .block-title {
-                font-size: 1.5rem;
-            }
-
-            .hero {
-                padding: 8vh 20px;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .brand {
-                font-size: 1.8rem;
-            }
-
-            .deployment-status {
-                font-size: 2.8rem;
-            }
-
-            .tagline {
-                font-size: 1.05rem;
+                gap: 1.25rem;
+                padding: 0 1rem 3rem;
             }
 
             .info-block {
-                padding: 30px 20px;
+                padding: 1.5rem 1rem;
+            }
+        }
+
+        /* Small Devices - Phones */
+        @media (min-width: 376px) and (max-width: 600px) {
+            .hero {
+                padding: 6vh 1.25rem;
+            }
+
+            .info-blocks {
+                gap: 1.5rem;
+                padding: 0 1.25rem 4rem;
+            }
+        }
+
+        /* Medium Devices - Tablets Portrait */
+        @media (min-width: 601px) and (max-width: 768px) {
+            .hero {
+                padding: 8vh 2rem;
+            }
+
+            .info-blocks {
+                gap: 2rem;
+                padding: 0 2rem 5rem;
+            }
+        }
+
+        /* Large Tablets and Small Desktops */
+        @media (min-width: 769px) and (max-width: 1024px) {
+            .info-blocks {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 2.5rem;
+            }
+        }
+
+        /* Landscape Orientation Adjustments */
+        @media (max-width: 768px) and (orientation: landscape) {
+            .hero {
+                padding: 5vh 1.5rem;
+            }
+
+            .brand {
+                margin-bottom: 1.5rem;
+            }
+
+            .deployment-status {
+                margin-bottom: 1rem;
+            }
+
+            .tagline {
+                margin-bottom: 2rem;
+            }
+
+            .info-blocks {
+                padding-bottom: 3rem;
+            }
+        }
+
+        /* Touch Device Optimizations */
+        @media (hover: none) and (pointer: coarse) {
+            .info-block {
+                /* Increase touch target size */
+                min-height: 44px;
+            }
+
+            .info-block:hover {
+                transform: none;
+            }
+
+            .info-block:active {
+                transform: translateY(-4px);
+                border-color: rgba(0, 212, 255, 0.6);
+            }
+        }
+
+        /* High DPI Displays */
+        @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+            .neural-network {
+                opacity: 0.1;
+            }
+        }
+
+        /* Accessibility - Reduced Motion */
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
             }
         }
     </style>
@@ -323,12 +391,17 @@
         const canvas = document.getElementById('networkCanvas');
         const ctx = canvas.getContext('2d');
 
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+
+        resizeCanvas();
 
         const nodes = [];
-        const nodeCount = 80;
-        const maxDistance = 150;
+        // Reduce node count on mobile for better performance
+        const nodeCount = window.innerWidth < 768 ? 40 : 80;
+        const maxDistance = window.innerWidth < 768 ? 100 : 150;
 
         class Node {
             constructor() {
@@ -393,12 +466,18 @@
 
         animate();
 
+        let resizeTimeout;
         window.addEventListener('resize', () => {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
+            clearTimeout(resizeTimeout);
+            resizeTimeout = setTimeout(() => {
+                resizeCanvas();
+            }, 250);
+        });
+
+        // Handle orientation change for mobile devices
+        window.addEventListener('orientationchange', () => {
+            setTimeout(resizeCanvas, 100);
         });
     </script>
 </body>
 </html>
-
-
